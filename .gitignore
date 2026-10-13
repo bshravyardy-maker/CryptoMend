@@ -42,6 +42,10 @@ dist/
 # Logs
 *.log
 
+# Presentations & Local Academic PDFs
+*.pdf
+generate_ppt_pdf.py
+
 # Results Directory (Keep directory tracked and sample benchmark artifacts)
 results/*
 !results/.gitkeep
