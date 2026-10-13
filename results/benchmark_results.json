@@ -1,0 +1,51 @@
+{
+  "timestamp": "2026-10-13T10:14:57Z",
+  "total_trials": 63,
+  "strategies_summary": {
+    "none": {
+      "total_trials": 21,
+      "exact_recovery_count": 3,
+      "exact_recovery_rate": 0.1429,
+      "partial_recovery_count": 8,
+      "partial_recovery_rate": 0.381,
+      "rejection_count": 10,
+      "rejection_rate": 0.4762,
+      "silent_incorrect_acceptance_count": 0,
+      "silent_incorrect_acceptance_rate": 0.0,
+      "avg_storage_overhead_pct": 27.07,
+      "avg_encoding_time_ms": 74.19,
+      "avg_recovery_time_ms": 70.35,
+      "avg_block_recovery_rate": 0.3566
+    },
+    "fixed": {
+      "total_trials": 21,
+      "exact_recovery_count": 6,
+      "exact_recovery_rate": 0.2857,
+      "partial_recovery_count": 11,
+      "partial_recovery_rate": 0.5238,
+      "rejection_count": 4,
+      "rejection_rate": 0.1905,
+      "silent_incorrect_acceptance_count": 0,
+      "silent_incorrect_acceptance_rate": 0.0,
+      "avg_storage_overhead_pct": 48.48,
+      "avg_encoding_time_ms": 72.52,
+      "avg_recovery_time_ms": 75.84,
+      "avg_block_recovery_rate": 0.614
+    },
+    "adaptive": {
+      "total_trials": 21,
+      "exact_recovery_count": 7,
+      "exact_recovery_rate": 0.3333,
+      "partial_recovery_count": 10,
+      "partial_recovery_rate": 0.4762,
+      "rejection_count": 4,
+      "rejection_rate": 0.1905,
+      "silent_incorrect_acceptance_count": 0,
+      "silent_incorrect_acceptance_rate": 0.0,
+      "avg_storage_overhead_pct": 64.95,
+      "avg_encoding_time_ms": 74.17,
+      "avg_recovery_time_ms": 79.21,
+      "avg_block_recovery_rate": 0.5897
+    }
+  }
+}

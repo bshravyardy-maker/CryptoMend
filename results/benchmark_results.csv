@@ -1,0 +1,4 @@
+Strategy,Total Trials,Exact Recovery Rate,Partial Recovery Rate,Rejection Rate,Silent Acceptance Rate,Avg Storage Overhead %,Avg Encoding Time (ms),Avg Recovery Time (ms)
+none,21,14.3%,38.1%,47.6%,0.0%,27.07%,74.19,70.35
+fixed,21,28.6%,52.4%,19.1%,0.0%,48.48%,72.52,75.84
+adaptive,21,33.3%,47.6%,19.1%,0.0%,64.95%,74.17,79.21

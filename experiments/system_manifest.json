@@ -1,0 +1,14 @@
+{
+  "service": "secure-adaptive-storage",
+  "version": "1.0.0",
+  "cipher": "AES-256-GCM",
+  "kdf": "scrypt",
+  "reed_solomon_gf": "2^8",
+  "thresholds": {
+    "low": 16,
+    "medium": 32,
+    "high": 64
+  },
+  "environment": "edge-sensor-gateway",
+  "status": "active"
+}

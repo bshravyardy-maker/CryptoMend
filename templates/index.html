@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoMend - Adaptive Redundancy for Encrypted File Recovery</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="brand">
+                <div class="brand-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="brand-title">CryptoMend</h1>
+                    <p class="brand-subtitle">Adaptive Redundancy for Encrypted File Recovery</p>
+                </div>
+            </div>
+            <div class="nav-status">
+                <span class="status-indicator"></span>
+                <span class="status-text">AES-256-GCM + RS(2^8) ACTIVE</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <!-- Top Metrics Overview -->
+        <section class="metrics-grid" id="metrics-cards">
+            <div class="card metric-card">
+                <span class="metric-label">Benchmark Trials</span>
+                <span class="metric-value" id="kpi-total-trials">-</span>
+                <span class="metric-sub">Matched Empirical Tests</span>
+            </div>
+            <div class="card metric-card">
+                <span class="metric-label">Exact Recovery Rate</span>
+                <span class="metric-value accent-green" id="kpi-exact-rate">-</span>
+                <span class="metric-sub">100% Plaintext Fidelity</span>
+            </div>
+            <div class="card metric-card">
+                <span class="metric-label">Partial Recovery Rate</span>
+                <span class="metric-value accent-blue" id="kpi-partial-rate">-</span>
+                <span class="metric-sub">Authenticated Sub-Blocks</span>
+            </div>
+            <div class="card metric-card">
+                <span class="metric-label">Silent Acceptance</span>
+                <span class="metric-value accent-green" id="kpi-silent-rate">0.0%</span>
+                <span class="metric-sub">Zero Corrupted Escapes</span>
+            </div>
+            <div class="card metric-card">
+                <span class="metric-label">Safe Rejection</span>
+                <span class="metric-value accent-red" id="kpi-rejection-rate">-</span>
+                <span class="metric-sub">Tampered / Out of Bound</span>
+            </div>
+            <div class="card metric-card">
+                <span class="metric-label">Avg Storage Overhead</span>
+                <span class="metric-value accent-purple" id="kpi-overhead">-</span>
+                <span class="metric-sub">Header + AES Tag + Parity</span>
+            </div>
+        </section>
+
+        <!-- Main Workspace Tabs -->
+        <div class="tabs-container">
+            <div class="tab-buttons">
+                <button class="tab-btn active" data-tab="simulator-tab">Live Experiment Simulator</button>
+                <button class="tab-btn" data-tab="analytics-tab">Benchmark Analytics & Charts</button>
+                <button class="tab-btn" data-tab="ledger-tab">File Recovery Ledger</button>
+                <button class="tab-btn" data-tab="arch-tab">Security Architecture</button>
+            </div>
+
+            <!-- Tab 1: Live Interactive Experiment Simulator -->
+            <div class="tab-content active" id="simulator-tab">
+                <div class="split-view">
+                    <!-- Control Form -->
+                    <div class="card form-card">
+                        <div class="card-header">
+                            <h2 class="card-title">Degradation & Recovery Sandbox</h2>
+                            <p class="card-desc">Simulate live encryption, environmental corruption, and authenticated reconstruction.</p>
+                        </div>
+                        <form id="simulate-form" class="sim-form">
+                            <div class="form-group">
+                                <label for="input-text">Payload Data (or upload file below)</label>
+                                <textarea id="input-text" name="text" rows="3" placeholder="Enter sensitive text to encrypt and protect..."></textarea>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="input-file">File Upload (Optional, max 2MB)</label>
+                                    <input type="file" id="input-file" name="file" class="file-input">
+                                </div>
+                                <div class="form-group">
+                                    <label for="passphrase">Secret Passphrase</label>
+                                    <input type="password" id="passphrase" name="passphrase" value="Security-Mission-Key-2026!" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="strategy">Redundancy Strategy</label>
+                                    <select id="strategy" name="strategy">
+                                        <option value="adaptive" selected>Adaptive (Deterministic Context)</option>
+                                        <option value="fixed">Fixed RS (32 Parity Symbols)</option>
+                                        <option value="none">None (0% Parity Baseline)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="risk-profile">Environmental Risk Profile</label>
+                                    <select id="risk_profile" name="risk_profile">
+                                        <option value="low">Low Risk (Local Flash/NVMe, 16 sym)</option>
+                                        <option value="medium" selected>Medium Risk (Network/Cloud, 32 sym)</option>
+                                        <option value="high">High Risk (Hostile/Wireless/Deep, 64 sym)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="corruption_type">Corruption Degradation Model</label>
+                                    <select id="corruption_type" name="corruption_type">
+                                        <option value="random_bytes">Random Byte Flips</option>
+                                        <option value="random_bits">Random Bit Flips</option>
+                                        <option value="burst_damage">Contiguous Burst Damage (Scratch)</option>
+                                        <option value="missing_blocks">Missing Block Erasures</option>
+                                        <option value="truncated_file">Premature File Truncation</option>
+                                        <option value="modify_header">Header Metadata Tampering</option>
+                                        <option value="modify_auth_tags">Cryptographic Tag Modification</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="severity">Corruption Severity: <span id="severity-val" class="highlight">5%</span></label>
+                                    <input type="range" id="severity" name="severity" min="0.01" max="0.50" step="0.01" value="0.05">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="seed">Reproducible Seed</label>
+                                    <input type="number" id="seed" name="seed" value="42" required>
+                                </div>
+                            </div>
+
+                            <button type="submit" id="btn-run-sim" class="btn btn-primary">
+                                <span class="btn-text">Execute Cryptographic Experiment</span>
+                                <span class="spinner hidden"></span>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Live Simulation Results Panel -->
+                    <div class="card results-panel" id="sim-result-card">
+                        <div class="card-header">
+                            <h2 class="card-title">Live Trial Verification Outcome</h2>
+                            <span id="sim-status-badge" class="badge badge-idle">Awaiting Execution</span>
+                        </div>
+
+                        <div class="sim-empty-state" id="sim-empty-state">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="8" x2="12" y2="12"></line>
+                                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                            </svg>
+                            <p>Configure simulation parameters and click <strong>Execute</strong> to test authenticated resilience.</p>
+                        </div>
+
+                        <div class="sim-results-body hidden" id="sim-results-body">
+                            <div class="result-stats-grid">
+                                <div class="stat-box">
+                                    <span class="stat-label">Block Recovery</span>
+                                    <span class="stat-value" id="res-blocks">-</span>
+                                </div>
+                                <div class="stat-box">
+                                    <span class="stat-label">Recovery Ratio</span>
+                                    <span class="stat-value" id="res-ratio">-</span>
+                                </div>
+                                <div class="stat-box">
+                                    <span class="stat-label">Corrupted Bytes</span>
+                                    <span class="stat-value" id="res-corrupt-bytes">-</span>
+                                </div>
+                                <div class="stat-box">
+                                    <span class="stat-label">Parity Symbols</span>
+                                    <span class="stat-value" id="res-nsym">-</span>
+                                </div>
+                                <div class="stat-box">
+                                    <span class="stat-label">Storage Overhead</span>
+                                    <span class="stat-value" id="res-overhead">-</span>
+                                </div>
+                                <div class="stat-box">
+                                    <span class="stat-label">Execution Time</span>
+                                    <span class="stat-value" id="res-time">-</span>
+                                </div>
+                            </div>
+
+                            <div class="audit-box">
+                                <span class="audit-title">Security & Verification Audit:</span>
+                                <p class="audit-desc" id="res-details">-</p>
+                            </div>
+
+                            <div class="preview-box">
+                                <span class="preview-title">Recovered Plaintext Preview:</span>
+                                <pre class="preview-content" id="res-preview">-</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 2: Benchmark Analytics & Charts -->
+            <div class="tab-content" id="analytics-tab">
+                <div class="charts-gallery">
+                    <div class="chart-card card">
+                        <h3 class="chart-title">1. Recovery Outcome by Strategy</h3>
+                        <p class="chart-subtitle">Exact Recovery vs Partial Recovery vs Safe Rejection</p>
+                        <div class="chart-img-wrap">
+                            <img src="/api/chart/strategy" alt="Recovery Rate by Strategy" class="chart-img" loading="lazy">
+                        </div>
+                    </div>
+
+                    <div class="chart-card card">
+                        <h3 class="chart-title">2. Resilience vs Corruption Severity</h3>
+                        <p class="chart-subtitle">Degradation curve across increasing error fractions</p>
+                        <div class="chart-img-wrap">
+                            <img src="/api/chart/severity" alt="Recovery vs Severity" class="chart-img" loading="lazy">
+                        </div>
+                    </div>
+
+                    <div class="chart-card card">
+                        <h3 class="chart-title">3. Total Storage Overhead</h3>
+                        <p class="chart-subtitle">Format metadata, scrypt salt, AES tags, and RS parity</p>
+                        <div class="chart-img-wrap">
+                            <img src="/api/chart/overhead" alt="Storage Overhead Comparison" class="chart-img" loading="lazy">
+                        </div>
+                    </div>
+
+                    <div class="chart-card card">
+                        <h3 class="chart-title">4. Computational Duration</h3>
+                        <p class="chart-subtitle">Mean encoding latency and recovery execution time</p>
+                        <div class="chart-img-wrap">
+                            <img src="/api/chart/timing" alt="Encoding and Recovery Time" class="chart-img" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 3: File Recovery Ledger -->
+            <div class="tab-content" id="ledger-tab">
+                <div class="card ledger-card">
+                    <div class="ledger-header">
+                        <div>
+                            <h2 class="card-title">Empirical Recovery Ledger</h2>
+                            <p class="card-desc">Trial audit logs verifying cryptographic zero-trust integrity.</p>
+                        </div>
+                        <div class="ledger-actions">
+                            <a href="/api/export-ledger" class="btn btn-secondary" download>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="7 10 12 15 17 10"></polyline>
+                                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                                </svg>
+                                Export CSV
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Filters -->
+                    <div class="ledger-filters">
+                        <div class="filter-item">
+                            <label for="filter-strategy">Strategy</label>
+                            <select id="filter-strategy">
+                                <option value="">All Strategies</option>
+                                <option value="adaptive">Adaptive</option>
+                                <option value="fixed">Fixed</option>
+                                <option value="none">None</option>
+                            </select>
+                        </div>
+                        <div class="filter-item">
+                            <label for="filter-status">Recovery Status</label>
+                            <select id="filter-status">
+                                <option value="">All Statuses</option>
+                                <option value="EXACT_RECOVERY">EXACT_RECOVERY</option>
+                                <option value="PARTIAL_RECOVERY">PARTIAL_RECOVERY</option>
+                                <option value="REJECTED">REJECTED</option>
+                                <option value="AUTHENTICATION_FAILURE">AUTHENTICATION_FAILURE</option>
+                                <option value="INVALID_FORMAT">INVALID_FORMAT</option>
+                            </select>
+                        </div>
+                        <div class="filter-item">
+                            <label for="filter-corruption">Corruption Mode</label>
+                            <select id="filter-corruption">
+                                <option value="">All Modes</option>
+                                <option value="random_bytes">Random Bytes</option>
+                                <option value="burst_damage">Burst Damage</option>
+                                <option value="missing_blocks">Missing Blocks</option>
+                                <option value="modify_header">Modify Header</option>
+                                <option value="modify_auth_tags">Modify Auth Tags</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Ledger Table -->
+                    <div class="table-responsive">
+                        <table class="ledger-table">
+                            <thead>
+                                <tr>
+                                    <th>Trial ID</th>
+                                    <th>Payload</th>
+                                    <th>Strategy</th>
+                                    <th>Corruption</th>
+                                    <th>Severity</th>
+                                    <th>Blocks</th>
+                                    <th>Recovery Status</th>
+                                    <th>Silent Error?</th>
+                                    <th>Total Time</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ledger-body">
+                                <tr><td colspan="9" class="text-center">Loading ledger records...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 4: Security Architecture -->
+            <div class="tab-content" id="arch-tab">
+                <div class="card arch-card">
+                    <h2 class="card-title">Threat Model & Architectural Principles</h2>
+                    
+                    <div class="arch-section">
+                        <h3>1. Layered Error Correction & Cryptography (Encode-then-Encrypt with RS Inner/Outer)</h3>
+                        <p>
+                            A common cryptographic misconception is that encryption alone can repair corrupted data. In reality, modern authenticated ciphers like AES-GCM are deliberately designed to fail completely upon any bit alteration to prevent forgery.
+                        </p>
+                        <p>
+                            The AREF system establishes a defensible layered boundary:
+                        </p>
+                        <ul>
+                            <li><strong>Plaintext Chunking:</strong> Segmented into block units bounded by Reed-Solomon Galois Field $GF(2^8)$ maximum codeword limit of 255 symbols.</li>
+                            <li><strong>AES-256-GCM Encryption:</strong> Each chunk is encrypted with a unique 96-bit nonce derived from master salt + monotonic block counter. Authenticated Associated Data (AAD) strictly binds block index and chunk length.</li>
+                            <li><strong>Reed-Solomon Parity Protection:</strong> Codewords protect the block header, authentication tag, and ciphertext. RS corrects up to $\lfloor nsym / 2 \rfloor$ unknown symbol errors or up to $nsym$ known erasures.</li>
+                            <li><strong>Zero-Trust Authentication Verification:</strong> Reconstructed data is <em>never</em> accepted based on RS correction alone. AES-GCM tag verification must pass with 128-bit cryptographic guarantee before data is accepted.</li>
+                        </ul>
+                    </div>
+
+                    <div class="arch-section">
+                        <h3>2. Threat Model Assumptions</h3>
+                        <ul>
+                            <li><strong>Channel Noise vs Active Adversary:</strong> Unintentional physical corruption (burst scratches, cosmic ray bit flips, transport packet loss) is repaired by Reed-Solomon. Active tampering beyond RS capacity fails AES-GCM authentication and is safely rejected.</li>
+                            <li><strong>Replay & Nonce Reuse Resistance:</strong> Master nonce combined with 4-byte block index counter guarantees that no two blocks share an IV.</li>
+                            <li><strong>Zero Silent Acceptance Guarantee:</strong> AES-256-GCM authentication tags prevent false-positive Reed-Solomon miscorrections from silently corrupting application state.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>Adaptive Redundancy for Encrypted File Recovery &bull; Production Ready &bull; Python 3.11+ / Flask / Cryptography / ReedSolo</p>
+    </footer>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

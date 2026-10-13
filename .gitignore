@@ -1,0 +1,50 @@
+# Python Bytecode & Optimization Caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Virtual Environments
+.venv/
+venv/
+env/
+ENV/
+.env.virtualenv
+
+# Environment & Sensitive Files
+.env
+*.pem
+*.key
+*.cert
+*.p12
+
+# Local IDE & Editor Configurations
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Temporary Uploads & Ephemeral Data
+tmp/
+temp/
+experiments/*.tmp
+/tmp/matplotlib*
+
+# Build Artifacts
+build/
+dist/
+*.egg-info/
+
+# Logs
+*.log
+
+# Results Directory (Keep directory tracked and sample benchmark artifacts)
+results/*
+!results/.gitkeep
+!results/*.csv
+!results/*.json
+!results/*.png
